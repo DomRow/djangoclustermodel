@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangoApp',
+    'djangobower',
+    'django_nvd3',
+    'djangoApp.management.commands.cluster'
     
 ]
 
@@ -49,7 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -57,7 +61,10 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'djangoApp/templates',
+            
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +72,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
+                #'djangoApp.clusters.cluster2',
+                
             ],
         },
     },
@@ -79,7 +89,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'imdb',
+        'NAME': 'imdbdb',
         'USER': 'root',
         'PASSWORD': 'mysql',
         'HOST': 'localhost',
@@ -128,3 +138,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+#bower settings-----------------------------------
+PROJECT_ROOT = ("C:/Users/user/Envs/djangonew4/django_project")
+BOWER_COMPONENTS_ROOT = ("C:/Users/user/Envs/djangonew4/django_project/components/")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+BOWER_INSTALLED_APPS = (
+        'jquery#1.9',
+        'underscore',
+        'nvd3',
+
+    )
+
+
+
+STATICFILES_FINDERS = [
+            'django.contrib.staticfiles.finders.FileSystemFinder',
+            'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+            'djangobower.finders.BowerFinder',
+ ]
+
+
+
+
+

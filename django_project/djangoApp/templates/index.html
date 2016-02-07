@@ -1,14 +1,85 @@
-{% extends "base.html" %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cluster</title>
+<link rel="stylesheet" href="static/bootstrap.css"/>
+<link rel="stylesheet" href="static/bootstrap.min.css"/>
 
-{% block content %}
-    <h3>Items in stock</h3>
-    <ul>
-    	{% for item in items %}
-    		<li>
-    			<a href="{% url 'item_detail' item.id %}">
-    				{{ item.title|capfirst }}
-    			</a>
-    		</li>
-    	{% endfor %}
-    </ul>
-{% endblock %}
+
+</head>
+
+<body>
+    <h1>Welcome to Clusterville</h1>
+    <div class="container"> 
+        <div class="span12" name="plotarea">
+            <!--<form action="/" method="POST">{% csrf_token %}
+                <label for="your_name" name="clust">No. Of Clusters: </label>
+                <input type="text" name="getvals">
+                <label for="dataset" name="dataset">Dataset:</label>
+                <input type="text" name="getset">
+                <label for="your_name" name="alg">Algorithm: </label>
+                <input type="text" name="getalg">
+                <input type="submit" value="OK">
+            </form>-->    
+            <form action="/your-name/" method="POST">{% csrf_token %}
+                <table>
+
+                    <tr>
+                        <td>CLUSTERS:</td>
+                        <td>
+                        <select name="getval">
+                            <option name="get1">2</option>
+                            <option name="get1">3</option>
+                            <option name="get1">4</option>
+                            <option name="get1">5</option>
+                            <option name="get1">6</option>
+                            <option name="get1">7</option>
+                            <option name="get1">8</option>
+                            <option name="get1">9</option>
+                            
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DATASET:</td>
+                        <td>
+                        <select name="getset">
+                            <option name="get2">IMDB</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ALGORITHM</td>
+                        <td>
+                        <select name="getalg">
+                           <option name="get3">K-Means</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <input type="submit" value="OK">
+                    </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="span12" name="plotarea">
+                <table><form>
+                    <form action="/your-name/" method="POST">{% csrf_token %}
+                    <table>
+
+                        <tr>
+                            <td># of Points:</td>
+                            <td>
+                            <input type="text" name="getpoints"></select>
+                            </td>
+                        </tr>
+
+                </form></table>
+            </div>    
+        </div>
+    </div>
+
+</body>
+</html>
+
