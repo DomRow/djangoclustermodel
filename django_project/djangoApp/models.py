@@ -35,35 +35,20 @@ class Actors(models.Model):
 	fullname=models.CharField(max_length=200)
 	movie_id=models.IntegerField()
 
-def pearson(v1,v2):
-        
-    #sums
-    #distance(clusters[i],row) are passed as v1,v2
-    #row=rows(counter)
-    #counter in clusters=[[random.random()*(ranges[i][1]-ranges[i][0])+ranges[i][0]
-    sum1=sum(v1)
-    sum2=sum(v2)
-    #print(sum1)
-    #sums of the sqs
-    sum1Sq=sum([pow(v,2) for v in v1])
-    sum2Sq=sum([pow(v,2) for v in v2])
-    
-    #sum of products
-    pSum=sum([v1[i]*v2[i] for i in range(len(v1))])
-    
-    #calculate pearson R
-    ##NOTE CHANGED - after PSUM to +
-    ##AND len(v1) changed to len(a)
-    a=(1,2)
-    num=pSum-(sum1*sum2/len(v1))
-    den=sqrt((sum1Sq-pow(sum1,2)/len(v1))*(sum2Sq-pow(sum2,2)/len(v1)))
-    if den==0: return 0
-    
-    return 1.0-num/den
+
 
 def euclidean(p,q):
-    dist=sqrt(q[0]-p[0])**2 + (q[1]-p[1])**2
-    return dist
+    #Differences - (x2-x1) (y2-y1)
+    diffv1=q[0]-p[0]
+    diffv2=q[1]-p[1]
+    #Squares - differences square
+    sqdiff1=diffv1**2
+    sqdiff2=diffv2**2
+    #Sum of sq diffs
+    sum=sqdiff1+sqdiff2
+    #Square root of sum
+    sqsum=sqrt(sum)
+    return sqsum
 
 
 def kmeans(rows,distance=pearson,k=4):
@@ -136,6 +121,4 @@ def kmeans(rows,distance=pearson,k=4):
                 
         return bestmatches
 
-def postprocess(request):
-    coordinates=[ [(1,1)], [], [3.5,5], [(1.5,2),(3,4),(5,7),(4.5,5),(3.5,4.5)]]
-    
+
