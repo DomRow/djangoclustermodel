@@ -11,9 +11,6 @@ from django_project import wsgi
 from django.shortcuts import render_to_response
 import random,datetime,time
     
-#Moviesall=Movies.objects.all()
-
-
 def index(request):
 	result_list = Moviesall.values('rating_count')[:10]
 	template = loader.get_template('index.html')
