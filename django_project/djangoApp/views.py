@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response
 from django.template import loader, RequestContext
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
-from models import Director,Actors,Movies,Genres,kmeans
+from models import Director,Actors,Movies,Genres,kmeans,norm
 from .forms import NameForm, MovieForm
 from django_project import wsgi
 from django.shortcuts import render_to_response
@@ -76,10 +76,12 @@ def demochart2(request):
     nb_element=10
     #xdata=[ [(1,1)], [], [3.5,5], [(1.5,2),(3,4),(5,7),(4.5,5),(3.5,4.5)]]
     z=request.POST.get('getpoints')
-    xdata=Moviesall.values_list('rating_count',flat=True)[:10]
-    ydata1=Moviesall.values_list('rating',flat=True)[:10]
+    xdataprenorm=Moviesall.values_list('rating_count',flat=True)[:10]
+    ydata1prenorm=Moviesall.values_list('rating',flat=True)[:10]
+    xdata=norm(xdataprenorm)
+    ydata1=norm(ydata1prenorm)
     print ydata1
-    #print kmeans(xdata,3)
+    
    
     #ydata1 = [i * random.randint(1, 10) for i in range(nb_element)]
     #ydata2 = map(lambda x: x * 2, ydata1)

@@ -51,6 +51,20 @@ def euclidean(p,q):
     return sqsum
 
 
+def norm(d):
+    #Normalize values
+    minX=min(d)
+    maxX=max(d)
+    newvals=[]
+    for i,val in enumerate(d):
+        #Xi-min(x)
+        top=float(val-minX)
+        bottom=float(maxX-minX)
+        normalized=float(top/bottom)
+        newvals.append(normalized)
+    return newvals
+
+
 def kmeans(rows,distance=euclidean,k=4):
     
     
