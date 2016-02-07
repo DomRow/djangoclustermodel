@@ -58,30 +58,23 @@ def kmeans(rows,distance=pearson,k=4):
     ranges=[(min([row[i] for row in rows]),max([row[i] for row in rows]))
 
     for i in range(len(rows[0]))] 
-    print ranges
-
-
 
     #create k randomly placed centroids within len of 'data'
     clusters=[[random.random()*(ranges[i][1]-ranges[i][0])+ranges[i][0]
     
     for i in range(len(rows[0]))] for j in range(k)]
-    #print clusters
-    
+        
     lastmatches=None
     for t in range(5):
-       # print 'Iteration %d' % t
+       #print 'Iteration %d' % t
 
         bestmatches=[[] for i in range(k)]
 
-        #print bestmatches
         #find which centroid is the closts to each row
         for j in range(len(rows)):
-            #print j
-            ##STILL HOLDING VALUES
+            
             row=rows[j]
-            ##-------------------
-
+            
             bestmatch=0
             for i in range(k):
                 ##apply pearson to clusters[0],row
@@ -90,17 +83,10 @@ def kmeans(rows,distance=pearson,k=4):
                 ##iterate bestmatch :. 
                 if d<distance(clusters[bestmatch],row):
                     bestmatch=i
-                #print i
-                #print 'iter'
-                #print d
-               # print distance(clusters[bestmatch],row)
-               # print 'iter'
+                
             bestmatches[bestmatch].append(j)
 
-            #print j
-            #print (row[j]
             
-
         if bestmatches==lastmatches: break
         lastmatches=bestmatches
         
@@ -112,12 +98,9 @@ def kmeans(rows,distance=pearson,k=4):
                 for rowid in bestmatches[i]:
                     for m in range(len(rows[rowid])):
                         avgs[m]+=rows[rowid][m]
-             #           print(avgs)
                     for j in range(len(avgs)):
                         avgs[j]/=len(bestmatches[i])
                     clusters[i]=avgs
-           # for index,elem in enumerate(bestmatches):
-            #    print(index,elem)
                 
         return bestmatches
 
