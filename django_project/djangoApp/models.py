@@ -51,7 +51,7 @@ def euclidean(p,q):
     return sqsum
 
 
-def kmeans(rows,distance=pearson,k=4):
+def kmeans(rows,distance=euclidean,k=4):
     
     
     #ranges finds the min and max to use as initial partition

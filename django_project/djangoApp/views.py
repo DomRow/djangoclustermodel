@@ -3,14 +3,14 @@ from django.shortcuts import render, render_to_response
 from django.template import loader, RequestContext
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
-from models import Director,Actors,Movies,Genres,kmeans,pearson
+from models import Director,Actors,Movies,Genres,kmeans
 from .forms import NameForm, MovieForm
-import clusters
-from clusters import Moviesall
 from django_project import wsgi
 from django.shortcuts import render_to_response
 import random,datetime,time
-    
+ 
+Moviesall=Movies.objects.all()
+
 def index(request):
 	result_list = Moviesall.values('rating_count')[:10]
 	template = loader.get_template('index.html')
