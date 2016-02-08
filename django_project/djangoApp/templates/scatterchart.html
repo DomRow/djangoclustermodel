@@ -1,8 +1,27 @@
-{% load nvd3_tags %}
+<!--{% load nvd3_tags %}
+{% load staticfiles %}-->
+
 <head>
+	
+	<script type="text/javascript" src="/static/scatter.js"></script>
+	<script type="text/javascript" src="/static/d3.js"></script>
+
 	{% include_chart_jscss %}
     {% load_chart charttype chartdata "scatterchart_container" %}
 </head>
 <body>
+	<div id="scatterarea">
+	    	<script>
+	    		var data= ("{{newcoord|escapejs}}");
+	    		console.log(data);
+
+				scatter_d3(data);
+	    	</script>
+	    </div>	
+
+	    <h1>Divider</h1>
     {% include_container "scatterchart_container" 400 600 %}
+
+    
+	    
 </body>

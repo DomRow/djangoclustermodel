@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, render_to_response
 from django.template import loader, RequestContext
 from django.http import HttpResponse
-from django.template.response import TemplateResponse
+from django.template.response import TemplateResponse,Template,Context
 from models import Director,Actors,Movies,Genres,kmeans,norm
 from .forms import NameForm, MovieForm
 from django_project import wsgi
@@ -113,8 +113,8 @@ def demochart2(request):
 def blobchart(request):
     #xdataprenorm=blob1
     #ydata1prenorm=Moviesall.values_list('rating',flat=True)[:100]
-    xdata=norm(circle1)
-    ydata1=norm(circle2)
+    xdata=[ [(1,1)], [], [3.5,5], [(1.5,2),(3,4),(5,7),(4.5,5),(3.5,4.5)]]
+    ydata1=[ [(1,1)], [], [3.5,5], [(1.5,2),(3,4),(5,7),(4.5,5),(3.5,4.5)]]
     
     print xdata,ydata1
     #kmeans(xdata,3)
@@ -142,4 +142,20 @@ def blobchart(request):
         'chartdata': chartdata,
         
     }
+
     return render_to_response('scatterchart.html', data)
+
+def pured3(request):
+	data=[(1, 1), (1.5, 2), (3, 4), (5, 7), (3.5, 5), (4.5, 5), (3.5, 4.5)]
+	bestmatches=[[0], [], [4], [1, 2, 3, 5, 6]]
+	coordinates = [[data[index] for index in bestmatch] for bestmatch in bestmatches]
+	newcoord=[[[1, 1]], [[3.5, 5]], [[1.5, 2], [3, 4], [5, 7], [4.5, 5], [3.5, 4.5]]]
+	#json.dumps(coordinates,allow_nan=True)
+	template=("<html></html>")
+	##Context takes two variables - a dict mapping var names tovar vals
+
+	context = RequestContext(request, {
+		'newcoord': newcoord
+		})
+	
+	return render(request, 'scatterchart.html',context)
