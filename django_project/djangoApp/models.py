@@ -59,7 +59,7 @@ def norm(d):
     for i,val in enumerate(d):
         #Xi-min(x)
         top=float(val-minX)
-        bottom=float(maxX-minX)
+        bottom=float(maxX*2-minX)
         normalized=float(top/bottom)
         newvals.append(normalized)
     return newvals
