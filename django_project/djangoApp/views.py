@@ -8,7 +8,7 @@ from .forms import NameForm, MovieForm
 from django_project import wsgi
 from django.shortcuts import render_to_response
 import random,datetime,time
-from blobs import blob1,blob2
+from blobs import blob1,blob2,crescent1,crescent2,circle1,circle2
  
 Moviesall=Movies.objects.all()
 
@@ -113,8 +113,8 @@ def demochart2(request):
 def blobchart(request):
     #xdataprenorm=blob1
     #ydata1prenorm=Moviesall.values_list('rating',flat=True)[:100]
-    xdata=blob2
-    ydata1=blob2
+    xdata=norm(circle1)
+    ydata1=norm(circle2)
     
     print xdata,ydata1
     #kmeans(xdata,3)

@@ -53,17 +53,30 @@ def euclidean(p,q):
 
 def norm(d):
     #Normalize values
-    minX=min(d)
-    maxX=max(d)
-    newvals=[]
-    for i,val in enumerate(d):
-        #Xi-min(x)
-        top=float(val-minX)
-        bottom=float(maxX*2-minX)
-        normalized=float(top/bottom)
-        newvals.append(normalized)
-    return newvals
+        minX=min(d)
+        maxX=max(d)
+        newvals=[]
+        for i,val in enumerate(d):
+            #Xi-min(x)
+            top=float(val-minX)
+            bottom=float(maxX*2-minX)
+            normalized=float(top/bottom)
+            newvals.append(normalized)
+        return newvals
 
+#def norm(d):
+    # #Normalize values
+    # for i,val in enumerate(d):
+    #     minX=min(d)
+    #     maxX=max(d)
+    #     newvals=[]
+    #     for i,val in enumerate(d):
+    #         #Xi-min(x)
+    #         top=float(val-minX)
+    #         bottom=float(maxX*2-minX)
+    #         normalized=float(top/bottom)
+    #         newvals.append(normalized)
+    #     return newvals
 
 def kmeans(rows,distance=euclidean,k=4):
     
@@ -115,7 +128,7 @@ def kmeans(rows,distance=euclidean,k=4):
                     for j in range(len(avgs)):
                         avgs[j]/=len(bestmatches[i])
                     clusters[i]=avgs
-                
+               
         return bestmatches
 
 
