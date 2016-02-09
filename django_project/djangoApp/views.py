@@ -146,12 +146,24 @@ def blobchart(request):
     return render_to_response('scatterchart.html', data)
 
 def pured3(request):
+	
+	clustattrib=request.POST.get('getpoints')
+	print 'User has selected ' +clustattrib
+
+	if clustattrib=='Ratings':
+		xdataprenorm=Moviesall.values_list('rating_count',flat=True)[:100]
+    	ydata1prenorm=Moviesall.values_list('rating',flat=True)[:100]
+    	print xdataprenorm
+
+
+
+
 	data=[(1, 1), (1.5, 2), (3, 4), (5, 7), (3.5, 5), (4.5, 5), (3.5, 4.5)]
 	bestmatches=[[0], [], [4], [1, 2, 3, 5, 6]]
 	coordinates = [[data[index] for index in bestmatch] for bestmatch in bestmatches]
 	newcoord=[[[1, 1]], [[3.5, 5]], [[1.5, 2], [3, 4], [5, 7], [4.5, 5], [3.5, 4.5]]]
 	#json.dumps(coordinates,allow_nan=True)
-	template=("<html></html>")
+	
 	##Context takes two variables - a dict mapping var names tovar vals
 
 	context = RequestContext(request, {
