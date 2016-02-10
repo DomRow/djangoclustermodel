@@ -114,7 +114,6 @@ def kmeans(rows,distance=euclidean,k=4):
                     for j in range(len(avgs)):
                         avgs[j]/=len(bestmatches[i])
                     clusters[i]=avgs
-               
-        return bestmatches
-
+        coordinates = [[rows[index] for index in bestmatch] for bestmatch in bestmatches]
+        return bestmatches,rows,coordinates
 

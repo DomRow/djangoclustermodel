@@ -150,31 +150,22 @@ def blobchart(request):
 def pured3(request):
 	xpnorm=Moviesall.values_list('rating_count',flat=True)[:1000]
 	ypnorm=Moviesall.values_list('rating',flat=True)[:1000]
-	#xnorm=norm(xpnorm)
-	#ynorm=norm(ypnorm)
 	rRc=json.dumps(zip(xpnorm,ypnorm))
 	test1 = kmeans(crescent1,k=3)
 	print test1
-
-	#print rRc
 	placeholder=""
-	clustattrib=request.POST.get('getset')
-	print 'User has selected ' +clustattrib
+	clustattrib=request.POST.get('getset1')
+	print clustattrib
 	#If 'Ratings' is in the POST 
-	if clustattrib=='Ratings':
-		placeholder=rRc
-	elif clustattrib=='Blobs':
-		placeholder=blob1
-	elif clustattrib=='Rings':
-		placeholder==circle1		
-    	#print xdataprenorm
-
+   
+    	#placeholder[1]=rRc	
     
 	##Context takes two variables - a dict mapping var names tovar vals
 	##This var is made available then on the chart page
 	context = RequestContext(request, {
-		'rating': norm(rRc),
-		
+		'rating': crescent1,
+		'dataset':request.POST.get('getset'),
+		'kclusters':request.POST.get('getval')
 		})
 	
 	return render(request, 'scatterchart.html',context)
