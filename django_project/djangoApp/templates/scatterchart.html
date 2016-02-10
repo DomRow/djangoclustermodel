@@ -1,27 +1,25 @@
-<!--{% load nvd3_tags %}
-{% load staticfiles %}-->
 
 <head>
 	
-	<script type="text/javascript" src="/static/scatter.js"></script>
-	<script type="text/javascript" src="/static/d3.js"></script>
+	<script type="text/javascript" src="/static/js/scatter.js"></script>
+	<script type="text/javascript" src="/static/js/d3.min.js"></script>
 
-	{% include_chart_jscss %}
-    {% load_chart charttype chartdata "scatterchart_container" %}
 </head>
 <body>
+	<h1>Clustered Data: {{dataset}} with {{kclusters}} clusters.</h1>
 	<div id="scatterarea">
 	    	<script>
-	    		console.log({{newcoord}});
-	    		var data= ("neh");
-	    		console.log(data);
+
+
+	    		var data= {{rating}};
+	    		//console.log(data);
 
 				scatter_d3(data);
 	    	</script>
 	    </div>	
 
-	    <h1>Divider</h1>
-    {% include_container "scatterchart_container" 400 600 %}
+	    
+    
 
     
 	    

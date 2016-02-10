@@ -2,158 +2,81 @@
 <html>
 <head>
 <title>Cluster</title>
-<link rel="stylesheet" href="static/bootstrap.css"/>
-<link rel="stylesheet" href="static/bootstrap.min.css"/>
-<script type="text/javascript" src="/static/scatter.js"></script>
-<script type="text/javascript" src="/static/d3.js"></script>
+<link rel="stylesheet" href="static/css/main.css"/>
+<link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+<script type="text/javascript" src="/static/js/d3.min.js"></script>
+<script type="text/javascript" src="/static/js/angular.min.js"></script>
+<script type="text/javascript" src="/static/js/scatter.js"></script>
+<script type="text/javascript" src="/static/js/ribbon.js"></script>
+
 
 </head>
 
 <body>
 
     <h1>Welcome to Clusterville</h1>
-    <div class="container"> 
-        <div class="span12" name="plotarea">
-            <!--<form action="/" method="POST">{% csrf_token %}
-                <label for="your_name" name="clust">No. Of Clusters: </label>
-                <input type="text" name="getvals">
-                <label for="dataset" name="dataset">Dataset:</label>
-                <input type="text" name="getset">
-                <label for="your_name" name="alg">Algorithm: </label>
-                <input type="text" name="getalg">
-                <input type="submit" value="OK">
-            </form>-->    
-            <form action="/your-name/" method="POST">{% csrf_token %}
-                <table>
-
-                    <tr>
-                        <td>CLUSTERS:</td>
-                        <td>
-                        <select name="getval">
-                            <option name="get1">2</option>
-                            <option name="get1">3</option>
-                            <option name="get1">4</option>
-                            <option name="get1">5</option>
-                            <option name="get1">6</option>
-                            <option name="get1">7</option>
-                            <option name="get1">8</option>
-                            <option name="get1">9</option>
-                            
-                        </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>DATASET:</td>
-                        <td>
-                        <select name="getset">
-                            <option name="get2">IMDB</option>
-                        </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ALGORITHM</td>
-                        <td>
-                        <select name="getalg">
-                           <option name="get3">K-Means</option>
-                        </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <input type="submit" value="OK">
-                    </td>
-                    </tr>
-                </table>
-            </form>
-            <div class="span12" name="plotarea">
-                <table><form>
-                    <form action="/your-name/" method="POST">{% csrf_token %}
+    <div class="container">
+        <h3>Pick a dataset youd like to explore</h3> 
+            <div class=".col-md-4" name="plotarea">   
+                <form action="/your-name/" method="POST">{% csrf_token %}
                     <table>
-
                         <tr>
-                            <td># of Points:</td>
+                            <td>DATASET</td>
                             <td>
-                            <input type="text" name="getpoints"></select>
+                            <select name="getset">
+                                <option name="getset0">Select...</option>
+                                <option name="getset1">IMDB - Ratings</option>
+                                <option name="getset2">Blobs</option>
+                                <option name="getset3">Rings</option>
+                                <option name="getset4">Crescents</option>
+                            </select>
                             </td>
                         </tr>
-
-                </form></table>
+                        <tr class="algselect">
+                            <td>ALGORITHM</td>
+                            <td>
+                            <select name="getalg">
+                                <option name="chooseone">Select one</option>
+                               <option name="get3">K-Means</option>
+                            </select>
+                            </td>
+                        </tr>   
+                        <tr id="clusterselect">
+                            <td>CLUSTERS</td>
+                            <td>
+                            <select name="getval">
+                                <option name="get1">2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <input type="submit" value="OK" class="btn">
+                        </td>
+                        </tr>
+                    </table>
+                </form>
             </div>    
-        </div>
     </div>
-    <script>
 
-    var n = 20, // number of layers
-    m = 200, // number of samples per layer
-    stack = d3.layout.stack().offset("wiggle"),
-    layers0 = stack(d3.range(n).map(function() { return bumpLayer(m); })),
-    layers1 = stack(d3.range(n).map(function() { return bumpLayer(m); }));
+        <script>ribbon_image();</script>
+    
 
-var width = 960,
-    height = 500;
-
-var x = d3.scale.linear()
-    .domain([0, m - 1])
-    .range([0, width]);
-
-var y = d3.scale.linear()
-    .domain([0, d3.max(layers0.concat(layers1), function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
-    .range([height, 0]);
-
-var color = d3.scale.linear()
-    .range(["#aad", "#556"]);
-
-var area = d3.svg.area()
-    .x(function(d) { return x(d.x); })
-    .y0(function(d) { return y(d.y0); })
-    .y1(function(d) { return y(d.y0 + d.y); });
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-svg.selectAll("path")
-    .data(layers0)
-  .enter().append("path")
-    .attr("d", area)
-    .style("fill", function() { return color(Math.random()); });
-
-function transition() {
-  d3.selectAll("path")
-      .data(function() {
-        var d = layers1;
-        layers1 = layers0;
-        return layers0 = d;
-      })
-    .transition()
-      .duration(2500)
-      .attr("d", area);
-}
-
-// Inspired by Lee Byron's test data generator.
-function bumpLayer(n) {
-
-  function bump(a) {
-    var x = 1 / (.1 + Math.random()),
-        y = 2 * Math.random() - .5,
-        z = 10 / (.1 + Math.random());
-    for (var i = 0; i < n; i++) {
-      var w = (i / n - y) * z;
-      a[i] += x * Math.exp(-w * w);
-    }
-  }
-
-  var a = [], i;
-  for (i = 0; i < n; ++i) a[i] = 0;
-  for (i = 0; i < 5; ++i) bump(a);
-  return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
-}
-
-
-
- console.log("End of scatterfile");
-
-</script>
+<div id="build">
+    <h2>Built with django</h2>
+    <h2>D3.js</h2>
+    <h2>Python</h2>
+    <h2>AngularJS</h2>
+    <h2>SQL</h2>
+</div>
 </body>
 </html>
 

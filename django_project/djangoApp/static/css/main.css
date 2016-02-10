@@ -1,0 +1,36 @@
+h1, h2, h3 {
+    font-size: 2.5em;
+}
+
+a {
+    font-size: 2em;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.hovered {
+    opacity: .6;
+}
+
+a {
+    text-decoration: none;
+    color: #33D;
+}
+
+.algselect{
+	visibility: hidden;
+}
+
+#container1{
+	float:left;
+}
+
+#container2{
+	float:left;
+	visibility: visible;
+
+}
+
+
