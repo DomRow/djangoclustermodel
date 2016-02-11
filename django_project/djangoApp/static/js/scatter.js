@@ -33,7 +33,7 @@ var svg = d3.select("body").append("svg")
     //d.rating_count = +d.rating_count;
     //d.cl = +d.cl;
   });
-  //console.log(data)
+  console.log('here');
   x.domain(d3.extent(data, function(d) { return d[0]; })).nice();
   y.domain(d3.extent(data, function(d) { return d[1]; })).nice();
 
@@ -41,6 +41,7 @@ var svg = d3.select("body").append("svg")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
+      .style("fill",function(d){return color(d)})
     .append("text")
       .attr("class", "label")
       .attr("x", width)
@@ -51,6 +52,7 @@ var svg = d3.select("body").append("svg")
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
+      .style("fill",function(d){return color(d)})
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
@@ -63,13 +65,16 @@ var svg = d3.select("body").append("svg")
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 3.5)
-      .attr("cx", function(d) {
-        console.log(d);
-
-        return x(d[0]); })
+      .attr("r", 10)
+      .attr("cx", function(d) {console.log('error' +x); return x(d[0]); })
       .attr("cy", function(d) { return y(d[1]); })
-      .style("fill", function(d) { return color(d.cl); });
+      .style("fill", function(d,i) {
+       console.log('For each d color++');
+        console.log(data[i]); 
+        console.log('For each d color++');
+        console.log('');
+       return color(i);
+        });
       //Will append cluster integer here
       //.style("fill", function(d) { return color(d.title); });
 

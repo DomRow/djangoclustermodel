@@ -150,9 +150,14 @@ def blobchart(request):
 def pured3(request):
 	xpnorm=Moviesall.values_list('rating_count',flat=True)[:1000]
 	ypnorm=Moviesall.values_list('rating',flat=True)[:1000]
-	rRc=json.dumps(zip(xpnorm,ypnorm))
-	test1 = kmeans(crescent1,k=3)
+	#rRc=json.dumps(zip(xpnorm,ypnorm))
+	klust=int(request.POST.get('getval'))
+	print klust
+	#NEED PLACEHOLDER IN PLACE OF DATA IN KMEANS------------------------------
+	test1 = json.dumps(kmeans(crescent1,k=klust))
+	print 'TEST 1--------------------------'
 	print test1
+	print 'TEST 1--------------------------'
 	placeholder=""
 	clustattrib=request.POST.get('getset1')
 	print clustattrib
@@ -163,7 +168,7 @@ def pured3(request):
 	##Context takes two variables - a dict mapping var names tovar vals
 	##This var is made available then on the chart page
 	context = RequestContext(request, {
-		'rating': crescent1,
+		'rating': test1,
 		'dataset':request.POST.get('getset'),
 		'kclusters':request.POST.get('getval')
 		})
