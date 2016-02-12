@@ -148,19 +148,33 @@ def blobchart(request):
     return render_to_response('scatterchart.html', data)
 
 def pured3(request):
-	xpnorm=Moviesall.values_list('rating_count',flat=True)[:1000]
-	ypnorm=Moviesall.values_list('rating',flat=True)[:1000]
-	#rRc=json.dumps(zip(xpnorm,ypnorm))
+	xpnorm1=Moviesall.values_list('rating_count','rating').exclude(rating_count__gte=100).exclude(rating_count__lt=1)[:100]
+	titles=Moviesall.values_list('title',flat=True)[:100]#.exclude(rating_count__lt=1)
+	#print xpnorm1
+	#xpnorm=norm(xpnorm1)
+	#ypnorm=norm(ypnorm1)
+	#print xpnorm
+	#rRcl contains L for long integers
+	rRcwithl=zip(xpnorm1)
+	# print rRcwithl
+	#print rRcwithl
+	clusters=kmeans(xpnorm1,k=5)
+	print clusters
+	rRc=json.dumps(clusters)
+	
+	#print type(rRc)
+	#print rRc
+	#clustrRc=kmeans(rRc,k=3)
+
 	klust=int(request.POST.get('getval'))
-	print klust
 	#NEED PLACEHOLDER IN PLACE OF DATA IN KMEANS------------------------------
-	test1 = json.dumps(kmeans(crescent1,k=klust))
-	print 'TEST 1--------------------------'
-	print test1
-	print 'TEST 1--------------------------'
-	placeholder=""
-	clustattrib=request.POST.get('getset1')
-	print clustattrib
+	#test1 = kmeans(blob1,k=klust)
+
+	#print 'TEST 1--------------------------'
+	#print test1
+	#print 'TEST 1--------------------------'
+	#clustattrib=request.POST.get('getset1')
+	#print clustattrib
 	#If 'Ratings' is in the POST 
    
     	#placeholder[1]=rRc	
@@ -168,9 +182,10 @@ def pured3(request):
 	##Context takes two variables - a dict mapping var names tovar vals
 	##This var is made available then on the chart page
 	context = RequestContext(request, {
-		'rating': test1,
+		'rating': rRc,
 		'dataset':request.POST.get('getset'),
-		'kclusters':request.POST.get('getval')
+		'kclusters':request.POST.get('getval'),
+		'titles':titles
 		})
 	
 	return render(request, 'scatterchart.html',context)
