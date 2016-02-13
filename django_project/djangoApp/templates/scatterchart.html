@@ -1,8 +1,21 @@
 
 <head>
-	
+	<style>
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+
+.dot{
+
+}
+</style>
 	<script type="text/javascript" src="/static/js/scatter.js"></script>
-	<script type="text/javascript" src="/static/js/d3.min.js"></script>
+	<script type="text/javascript" src="/static/js/scatter2.js"></script>
+	<script type="text/javascript" src="/static/js/d3.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/js/c3.min.js"></script>
 
 </head>
 <body>
@@ -13,6 +26,10 @@
 
 
 	    		var data= {{rating}};
+	    		//var data= [1,2,3,4,5//d= 1 2 3 4 5 separate
+	    		//var data=[[1,2,3,4,5]];//d= [1,2,3,4,5]
+	    		//var data=[[[1,2,3,4,5],[5]]];//d= [1,2,3,4,5]
+	    		
 	    		//console.log(data);
 
 				scatter_d3(data);

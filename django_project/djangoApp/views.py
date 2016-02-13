@@ -148,25 +148,22 @@ def blobchart(request):
     return render_to_response('scatterchart.html', data)
 
 def pured3(request):
-	xpnorm1=Moviesall.values_list('rating_count','rating').exclude(rating_count__gte=100).exclude(rating_count__lt=1)[:100]
-	titles=Moviesall.values_list('title',flat=True)[:100]#.exclude(rating_count__lt=1)
-	#print xpnorm1
+	xpnorm1=Moviesall.values_list('rating_count','rating').exclude(rating_count__gte=100).exclude(rating_count__lt=1)[:15]
+	#ypnorm1=Moviesall.values_list('rating',flat=True)[:2]#.exclude(rating_count__lt=1)
+	print xpnorm1
 	#xpnorm=norm(xpnorm1)
 	#ypnorm=norm(ypnorm1)
 	#print xpnorm
 	#rRcl contains L for long integers
-	rRcwithl=zip(xpnorm1)
-	# print rRcwithl
-	#print rRcwithl
-	clusters=kmeans(xpnorm1,k=5)
-	print clusters
-	rRc=json.dumps(clusters)
-	
+	klust=int(request.POST.get('getval'))
+	clusted=kmeans(xpnorm1,k=klust)
+	rRc=json.dumps(clusted)
+
 	#print type(rRc)
-	#print rRc
+	print rRc
 	#clustrRc=kmeans(rRc,k=3)
 
-	klust=int(request.POST.get('getval'))
+	
 	#NEED PLACEHOLDER IN PLACE OF DATA IN KMEANS------------------------------
 	#test1 = kmeans(blob1,k=klust)
 
@@ -184,8 +181,7 @@ def pured3(request):
 	context = RequestContext(request, {
 		'rating': rRc,
 		'dataset':request.POST.get('getset'),
-		'kclusters':request.POST.get('getval'),
-		'titles':titles
+		'kclusters':request.POST.get('getval')
 		})
 	
 	return render(request, 'scatterchart.html',context)
