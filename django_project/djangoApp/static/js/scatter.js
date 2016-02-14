@@ -1,5 +1,6 @@
 function scatter_d3(data){
 
+
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
   width = 960 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
@@ -24,24 +25,15 @@ var yAxis = d3.svg.axis()
 var xValue = function(d){ return d;}
 var yValue = function(d){ return d;}
 
+
 var svg = d3.select("body").append("svg")
 .attr("width", width + margin.left + margin.right)
 .attr("height", height + margin.top + margin.bottom)
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-// data.forEach(function(d,i) { 
-//   inner=d;
-//   console.log('d' +i+' : ' +d);
-//     inner.forEach(function(d){
-//       console.log('d-inner ' +d);
-//       d.rating_count=d[0];
-//       d.rating=d[1];
-//       console.log('d-rating ' +d.rating+ ' d-ratingcount ' +d.rating_count);
-//     });
-//   });
 
-x.domain(d3.extent(data, function(d,i) { return d.rating; }));
-y.domain(d3.extent(data, function(d,i) { return d.rating_count; }));
+x.domain(d3.extent(data, function(d) {console.log('ddata '+d);return d;})).nice();
+y.domain(d3.extent(data, function(d,i) {console.log('dclusterta '+d);return d;}));
 
 svg.append("g")
 .attr("class", "x axis")
@@ -67,35 +59,37 @@ svg.append("g")
 .style("text-anchor", "end")
 .text("Rating")
 
+
+
 //For each element in d, each group=cluster
 //clusers
 data.forEach(function(d,i){
-  //console.log(data);
+  console.log(data.length);
   cluster=d;
-  console.log("Clusters: "+cluster, i);
+  console.log("hi " +d3.max(cluster));
+  
+  console.log('Extento ' +d3.extent(cluster, function(d){return d}));
   cluster.forEach(function(d){
-    console.log("Elements " +d);
-    //for each d in cluster, d[0]Rating d[1]RatingCount
     rating=d[0];
     rating_count=d[1];
-    //console.log("rating"+cluster.rating+" ratingcount "+cluster.rating_count);
-    console.log(rating,rating_count);
     svg.selectAll(".dot")
     .data(cluster)
     .enter().append("circle")
     .attr("class", "dot")
-    .attr("r", 12)
+    .attr("r", 5)
     //Scaling factor
     .attr("cx",function(d,i){
-      console.log("D " +d)
+      //console.log("D " +d)
       return width/100*d[0];
     })
     .attr("cy", function(d,i){
-      console.log("D " +d)
+      //console.log("D " +d)
       return height/10*d[1];
     })
-    .style("fill", function(d,i) { return color(i);})
+    .style("fill", color(d) )
     .on("mouseover", function(d){
+      temp=d;
+      console.log("HIYO " +xValue(d));
       tooltip.transition()
         .duration(200)
         .style("opacity",1);
@@ -109,6 +103,7 @@ data.forEach(function(d,i){
                    .style("opacity", 0);
           });
   });
+  return cluster;
 });  
    
 var tooltip = d3.select("body").append("div")
@@ -129,7 +124,10 @@ var tooltip = d3.select("body").append("div")
       .attr("x", width - 18)
       .attr("width", 18)
       .attr("height", 18)
-      .style("fill", color);
+      .style("fill", function(d,i){
+        colors = cluster.length;
+        return color(2);
+      });
 
       legend.append("text")
       .attr("x", width - 24)
