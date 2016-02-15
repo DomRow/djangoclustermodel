@@ -1,5 +1,5 @@
 function scatter_d3(data){
-
+console.log(data);
 
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
   width = 960 - margin.left - margin.right,
@@ -37,7 +37,7 @@ var svg = d3.select("body").append("svg")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 x.domain(d3.extent(data, function(d,i) {console.log('dclusterta '+d);return d;}));
-y.domain(d3.extent(data, function(d,i) {console.log('dclusterta '+d);return d;}));
+y.domain(d3.extent(data, function(d,i) {console.log('dclustertb '+d);return d;}));
 
 svg.append("g")
 .attr("class", "x axis")
@@ -73,7 +73,8 @@ data.forEach(function(d,i){
   //console.log("hi " +d3.max(cluster));
   return cluster;
  }); 
-  console.log('Cluster is: ' +cluster);
+  console.log('Data is: ' +data[0]);
+  console.log('Cluster var is: ' +cluster);
   cluster.forEach(function(d){
     rating=d[0];
     rating_count=d[1];
