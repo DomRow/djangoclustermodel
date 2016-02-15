@@ -23,8 +23,12 @@ var yAxis = d3.svg.axis()
 .orient("left");
 
 var xValue = function(d){ return d;}
+//var newX,newY;
 var yValue = function(d){ return d;}
 
+var tooltip = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity",0);
 
 var svg = d3.select("body").append("svg")
 .attr("width", width + margin.left + margin.right)
@@ -32,7 +36,7 @@ var svg = d3.select("body").append("svg")
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-x.domain(d3.extent(data, function(d) {console.log('ddata '+d);return d;})).nice();
+x.domain(d3.extent(data, function(d,i) {console.log('dclusterta '+d);return d;}));
 y.domain(d3.extent(data, function(d,i) {console.log('dclusterta '+d);return d;}));
 
 svg.append("g")
@@ -66,9 +70,10 @@ svg.append("g")
 data.forEach(function(d,i){
   console.log(data.length);
   cluster=d;
-  console.log("hi " +d3.max(cluster));
-  
-  console.log('Extento ' +d3.extent(cluster, function(d){return d}));
+  //console.log("hi " +d3.max(cluster));
+  return cluster;
+ }); 
+  console.log('Cluster is: ' +cluster);
   cluster.forEach(function(d){
     rating=d[0];
     rating_count=d[1];
@@ -79,12 +84,14 @@ data.forEach(function(d,i){
     .attr("r", 5)
     //Scaling factor
     .attr("cx",function(d,i){
-      //console.log("D " +d)
-      return width/100*d[0];
+      console.log("D from cx " +d[0]+" and result "+(9*d[0])); //" and result "+(9*d[0]));
+      //newX=d[0];
+      return d[0]*(width/100);//*(width/100);
     })
     .attr("cy", function(d,i){
-      //console.log("D " +d)
-      return height/10*d[1];
+      console.log("D from cy " +d[1]+ " and result " +(45*d[1]));
+      //newY=d[1];
+      return height-d[1]*45;
     })
     .style("fill", color(d) )
     .on("mouseover", function(d){
@@ -93,7 +100,7 @@ data.forEach(function(d,i){
       tooltip.transition()
         .duration(200)
         .style("opacity",1);
-        tooltip.html("Title" + "<br/> (" + xValue(d)+ ")")
+        tooltip.html("Title" + "<br/> (" + xValue(d) +")")
                    .style("left", (d3.event.pageX + 5) + "px")
                    .style("top", (d3.event.pageY - 28) + "px");
     })
@@ -103,12 +110,10 @@ data.forEach(function(d,i){
                    .style("opacity", 0);
           });
   });
-  return cluster;
-});  
+  
+  
    
-var tooltip = d3.select("body").append("div")
-  .attr("class", "tooltip")
-  .style("opacity",0);
+
 
      
       //Will append cluster integer here
@@ -125,8 +130,8 @@ var tooltip = d3.select("body").append("div")
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", function(d,i){
-        colors = cluster.length;
-        return color(2);
+        //colors = cluster.length;
+        return color(d);
       });
 
       legend.append("text")
