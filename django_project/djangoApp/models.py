@@ -3,8 +3,6 @@ from math import sqrt
 import random,json
 from django.db import models
 
-
-
 class Movies(models.Model):
 	id=models.IntegerField(primary_key=True)
 	imid=models.CharField(max_length=50)
@@ -35,7 +33,12 @@ class Actors(models.Model):
 	fullname=models.CharField(max_length=200)
 	movie_id=models.IntegerField()
 
-
+class Iris(models.Model):
+    sepal_length=models.IntegerField()
+    sepal_width=models.FloatField()
+    pet_length=models.FloatField()
+    pet_width=models.FloatField()
+    species=models.CharField(max_length=15)
 
 def euclidean(p,q):
     #Differences - (x2-x1) (y2-y1)
