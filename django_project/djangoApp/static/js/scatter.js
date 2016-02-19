@@ -1,30 +1,28 @@
-function scatter_d3(data){
-  console.log(data);
+function scatter_d3(data,titles){
 
+  //console.log(titles);
+  var loop = function(d){return d;};
+     
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
   width = 960 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
 
-    //x is a discrete linear range from x to width
-    var x = d3.scale.linear()
-    .range([0, width]);
+  //x is a discrete linear range from x to width
+  var x = d3.scale.linear()
+  .range([0, width]);
 
-    var y = d3.scale.linear()
-    .range([height, 0]);
+  var y = d3.scale.linear()
+  .range([height, 0]);
 
-    var color = d3.scale.category10();
+  var color = d3.scale.category10();
 
-    var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+  var xAxis = d3.svg.axis()
+  .scale(x)
+  .orient("bottom");
 
-    var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
-
-    var xValue = function(d){ return d;}
-    //var newX,newY;
-    var yValue = function(d){ return d;}
+  var yAxis = d3.svg.axis()
+  .scale(y)
+  .orient("left");
 
   var tooltip = d3.select("body").append("div")
   .attr("class", "tooltip")
@@ -36,8 +34,8 @@ function scatter_d3(data){
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  x.domain(d3.extent(data, function(d,i) {console.log('dclusterta '+d);return d;}));
-  y.domain(d3.extent(data, function(d,i) {console.log('dclustertb '+d);return d;}));
+  x.domain(d3.extent(data, function(d,i) {return d;}));
+  y.domain(d3.extent(data, function(d,i) {return d;}));
 
   svg.append("g")
   .attr("class", "x axis")
@@ -69,7 +67,6 @@ function scatter_d3(data){
   //clusers
 
   data.forEach(function(cluster, i){
-    console.log("Cluster" +cluster);
     cluster.forEach(function(d){
       svg.selectAll(".dot")
       .data(cluster,function(d){
@@ -86,12 +83,11 @@ function scatter_d3(data){
       })
       .style("fill", color(d) )
       .on("mouseover", function(d){
-        console.log("MouseOver");
+        console.log("MouseOver" +i);
         tooltip.transition()
         .duration(200)
         .style("opacity",1);
-        tooltip.html("Hi"
-          )
+        tooltip.html(titles[i]+"</br>" +d )
         .style("left", (d3.event.pageX + 5) + "px")
         .style("top", (d3.event.pageY - 28) + "px");
       })
@@ -100,7 +96,7 @@ function scatter_d3(data){
         .duration(500)
         .style("opacity", 0);
       });
-
+      
     }); // cluster for each
 
   }); // data forEach
@@ -117,7 +113,7 @@ function scatter_d3(data){
   .attr("width", 18)
   .attr("height", 18)
   .style("fill", function(d,i){
-    //colors = cluster.length;
+    //console.log(cluster);
     return color(d);
   });
 

@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+        <meta charset="UTF-8">
 <title>Cluster</title>
 <link rel="stylesheet" href="static/css/main.css"/>
 <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
@@ -10,6 +11,8 @@
 <script type="text/javascript" src="/static/js/angular.min.js"></script>
 <script type="text/javascript" src="/static/js/scatter.js"></script>
 <script type="text/javascript" src="/static/js/ribbon.js"></script>
+<script type="text/javascript" src="/static/js/nodes.js"></script>
+<script src="static/js/controller.js"></script>
 
 
 </head>
@@ -18,7 +21,7 @@
 
     <h1>Welcome to Clusterville</h1>
     <div class="container">
-        <h3>Pick a dataset youd like to explore</h3> 
+        <h3>Pick the dataset you would like to explore</h3> 
             <div class=".col-md-4" name="plotarea">   
                 <form action="/your-name/" method="POST">{% csrf_token %}
                     <table>
@@ -28,22 +31,22 @@
                             <select name="getset">
                                 <option name="getset0">Select...</option>
                                 <option id="getset1">IMDB - Ratings</option>
-                                <option name="getset2">Blobs</option>
+                                <option name="getset2">Iris</option>
                                 <option name="getset3">Rings</option>
                                 <option name="getset4">Crescents</option>
                             </select>
                             </td>
                         </tr>
-                        <tr class="algselect">
+                        <tr class="algselect" ng-show="hello">
                             <td>ALGORITHM</td>
                             <td>
-                            <select name="getalg">
+                            <select name="getalg2">
                                 <option name="chooseone">Select one</option>
-                               <option name="get3">K-Means</option>
+                               <option name="getalg1">K-Means</option>
                             </select>
                             </td>
                         </tr>   
-                        <tr id="clusterselect">
+                        <tr id="clusterselect" ng-show="hello">
                             <td>CLUSTERS</td>
                             <td>
                             <select name="getval">
@@ -58,6 +61,11 @@
                                 
                             </select>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>Number of results: </td>
+                             <td><input type="text" name="getnums"></input></td>   
+                            
                         </tr>
                         <tr>
                             <td>

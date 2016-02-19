@@ -40,6 +40,8 @@ class Iris(models.Model):
     pet_width=models.FloatField()
     species=models.CharField(max_length=15)
 
+    
+
 def euclidean(p,q):
     #Differences - (x2-x1) (y2-y1)
     diffv1=q[0]-p[0]
@@ -68,7 +70,7 @@ def norm(d):
         return newvals
 
 def kmeans(rows,distance=euclidean,k=4):
-    
+    print rows
     
     #ranges finds the min and max to use as initial partition
     ranges=[(min([row[i] for row in rows]),max([row[i] for row in rows]))
@@ -79,7 +81,7 @@ def kmeans(rows,distance=euclidean,k=4):
     clusters=[[random.random()*(ranges[i][1]-ranges[i][0])+ranges[i][0]
     
     for i in range(len(rows[0]))] for j in range(k)]
-        
+    print rows   
     lastmatches=None
     for t in range(5):
        #print 'Iteration %d' % t

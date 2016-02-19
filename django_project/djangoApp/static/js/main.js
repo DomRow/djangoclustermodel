@@ -11,6 +11,11 @@
     //     items[i].addEventListener('mouseover', on_mouse_over);
     //     items[i].addEventListener('mouseout', on_mouse_out);
     // }
+    function dotcount(){
+     var dots = $(".dot").length();
+     $("#dotcount").html(dots);   
+    }
+
 
     var datasetget=$('#getset option').children();
     datasetget.click(function(){
