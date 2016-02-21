@@ -16,8 +16,12 @@
 	<script type="text/javascript" src="/static/js/scatter.js"></script>
 	<script type="text/javascript" src="/static/js/scatter2.js"></script>
 	<script type="text/javascript" src="/static/js/main.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/static/js/d3.min.js" charset="utf-8"></script>
-	<script type="text/javascript" src="/static/js/c3.min.js"></script>
+<script>
+		var dots = $("circle").length;
+     $("#dotcount").html("<h1>"+dots+"</h1>");
+      </script>	
 
 </head>
 <body>
@@ -27,13 +31,15 @@
     <h3 id="dotcount"></h3>
 	<div id="scatterarea">
 	    	<script>
-	    		
-	    		var data= {{rating|safe}};
-	    		var title={{titles|safe}};
-	    		scatter_d3(data,title);
+	    		var settype={{settype|safe}}
+	    		var data= {{data|safe}};
+	    		//var title={{titles|safe}};
+	    		scatter_d3(data,settype);
 	    	</script>
+	</div>
+	<div id="tooltipside">
 
-	    </div>
+	</div>
 
 
 	    

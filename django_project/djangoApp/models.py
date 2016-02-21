@@ -69,6 +69,8 @@ def norm(d):
             newvals.append(normalized)
         return newvals
 
+
+#Kmeans 3 params - data, a function to aquire distance metric&number of clusters
 def kmeans(rows,distance=euclidean,k=4):
     print rows
     

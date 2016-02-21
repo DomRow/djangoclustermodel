@@ -20,7 +20,7 @@ a {
 }
 
 .algselect{
-	visibility: hidden;
+	visibility: visible;
 }
 
 #container1{
@@ -31,6 +31,10 @@ a {
 	float:left;
 	visibility: visible;
 
+}
+
+#tooltipside{
+    float:right;
 }
 
 
