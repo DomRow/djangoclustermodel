@@ -32,7 +32,9 @@ def pured3(request):
 	 		rows.append((e[0],int(x),e[2]))
 	if dataset=='IMDB - Actors':
 		settype="actors"
-		initrows=Actors_all.values_list('fullname','movie_ref')[:numres] 	
+		#rows=Actors_all.values_list('fullname','movie_ref')
+		rows=Actors.objects.filter(movie_ref__title__contains="Black")
+		print rows[1].movie_ref
 	elif dataset=='Iris':
 	 	settype="iris"
 	 	rows=Iris_all.values_list('sepal_width','petal_length','species')[:numres]
