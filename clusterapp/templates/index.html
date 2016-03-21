@@ -17,10 +17,15 @@
 
 <body>
 
-    <h1>Welcome to Clusterville</h1>
+    <h1>Welcome to ClusterAt</h1>
     <div class="container">
-        <h3>Pick the dataset you would like to explore</h3> 
-        <div class=".col-md-4" name="plotarea">   
+        <h3>Pick the dataset you would like to explore</h3>
+        <div><table><form action="cluster-results/" method="POST">{% csrf_token %}
+                {{form}}
+             <tr><td><input type="submit" value="OK" class="btn"></tr></td></form>   
+        </table></div>
+        <div><script>ribbon_image();</script></div> 
+    <!--     <div class=".col-md-4" name="plotarea">   
             <form action="cluster-results/" method="POST">{% csrf_token %}
                 <table>
                     <tr>
@@ -77,16 +82,17 @@
             </table>
         </form>
     </div>    
-</div>
+</div> -->
 
-<script>ribbon_image();</script>
+
 
 
 <div id="build">
+    <h2>Built with: </h2>
     <ul>
-        <li><h2>Built with Django</h2></li>
+        <li><h2>Django</h2></li>
         <li><h2>D3.js</h2></li>
-        <li><h2>SQL</h2></li>
+        <li><h2>MySQL</h2></li>
     </ul>
 </div>
 </body>

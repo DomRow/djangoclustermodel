@@ -134,7 +134,7 @@ legend.append("text")
 function mousedown(d){
   test=document.getElementById("tooltipside");
   test.innerHTML = ("");
-  test.innerHTML = (d[2]);
+  test.innerHTML = (d);
 
 };
 

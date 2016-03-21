@@ -18,7 +18,7 @@ class Movies(models.Model):
     rating_count = models.IntegerField()
     release_date = models.CharField(max_length=30)
     plot = models.CharField(max_length=1000)
-
+    
 
 class Director(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -26,15 +26,48 @@ class Director(models.Model):
     movie_ref = models.ForeignKey(Movies, db_column='movie_ref')
 
 
-class Genres(models.Model):
-    id = models.IntegerField(primary_key=True)
-    genre = models.CharField("genre type", max_length=200, db_column='genre')
-    movie_ref = models.ForeignKey(Movies, db_column='movie_ref')
+"""
+To Use this call ActorManager.objects.count_avg()
+django.db connection is representing the db connection
+The connection.cursor creates a cursor object on which 
+the raw SQL query is executed
+Results(count,avg,fullname) are appended to an empty list
+"""
+class ActorManager(models.Manager):
+    def count_avg(self):
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("""
+            SELECT COUNT(*),
+            AVG(clusterapp_movies.rating),
+            fullname 
+            FROM clusterapp_actors 
+            INNER JOIN clusterapp_movies 
+            ON clusterapp_actors.movie_ref = clusterapp_movies.id 
+            GROUP BY `fullname` having COUNT(*) >1
+            """)
+        result_set=cursor.fetchall()
+        print type(result_set)
+        return result_set
+        #result_list = []
+        #for item in cursor.fetchall():
+            # p = self.model(fullname=item[2])
+            # p.count = item[0]
+            # p.avg = int(item[1])
+            # result_list.append(p)
+        #return result_list    
 
 
 class Actors(models.Model):     
     id = models.IntegerField(primary_key=True)
     fullname = models.CharField("actors full name", max_length=200)
+    movie_ref = models.ForeignKey(Movies, db_column='movie_ref')
+    objects = ActorManager()
+
+
+class Genres(models.Model):
+    id = models.IntegerField(primary_key=True)
+    genre = models.CharField("genre type", max_length=200, db_column='genre')
     movie_ref = models.ForeignKey(Movies, db_column='movie_ref')
 
 
@@ -44,7 +77,7 @@ class Iris(models.Model):
     petal_length = models.FloatField()
     petal_width = models.FloatField()
     species = models.CharField(max_length=15)
-    
+
 """Get all
 Stored reference to a get all objects query for each Model
 """
@@ -106,32 +139,37 @@ The second part of the algorithm calculates an average of the members
 
 Due to the fact that the data is static, a list comprehension 
 Input: List of paired values from database
-Parameters: Euclidean Distance Function, K number of clusters
+Parameters: Euclidean Distance Function, K number of clusters - provided by user input
+Step 1: Choose number of clusters (K; provided by user)
+Step 2: Set the initial partition, and centroids
+Step 3: Repeat until convergence:
+    Step 4: 
 """
 
 
 def k_means(data, distance=euclidean, k=4):
-    
+    #Basic preprocessing
     rows = []
     for i in data:
         rows.append(i[:2])
 
+    #Create initial partition using the upper and lower bounds of the data
     euclid_range = [(min([row[i] for row in rows]), max([row[i] for row in rows]))
     
                     for i in range(len(rows[0]))]
-
+    #Initial mean vectors/centroids                
     centroids = [[random.random()*(euclid_range[i][1]-euclid_range[i][0])+euclid_range[i][0]
     
                 for i in range(len(rows[0]))] for j in range(k)]
-
+    #Assignment Step            
     last_matches = None
-    for t in range(3):
+    for t in range(8):
         print 'Iteration %d' % t
-
+        #Create list of lists for each K
         groups = [[] for i in range(k)]
 
         for j in range(len(rows)):
-
+            #create counter through data items
             row = rows[j]
 
             count_match = 0
@@ -146,7 +184,9 @@ def k_means(data, distance=euclidean, k=4):
 
         if groups == last_matches: break
         last_matches = groups
-
+        """Update Step
+           The goal of this step is to reduce the total sum of squared distances          
+        """
         for i in range(k):
 
             averages = [0.0]*len(rows[0])

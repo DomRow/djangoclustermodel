@@ -5,13 +5,13 @@ class ClusterForm(forms.Form):
 								initial="",
 								widget=forms.Select(),
 								required=True,
-								choices=[("imdb","IMDB - Ratings"),("iris","Iris"),("blobs","Blobs"),("crescents","Crescents"),("rings","Rings"),])
+								choices=[("imdb","IMDB - Ratings"),("actors","IMDB - Actors"),("iris","Iris"),("blobs","Blobs"),("crescents","Crescents"),("rings","Rings"),])
 
 	algorithm = forms.ChoiceField(label="Algorithm",
 								initial="",
 								widget=forms.Select(),
 								required=True,
-								choices=[("kmeans","KMeans")])
+								choices=[("select","Select"),("kmeans","KMeans")])
 
 	clusters = forms.ChoiceField(label="Clusters",
 								initial="",
@@ -22,5 +22,5 @@ class ClusterForm(forms.Form):
 	numresults = forms.IntegerField(label="Number of Points"
 								,required=True)
 
-	iterations = forms.IntegerField(label="Number of Iterations"
-								,required=True)
+	# iterations = forms.IntegerField(label="Number of Iterations"
+	# 							,required=True)
