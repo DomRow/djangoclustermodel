@@ -1,5 +1,6 @@
+
 function scatter_d3(data,axes,f){
-  console.log(data);  
+  console.log(axes);  
   var margin = {top: 20, right: 100, bottom: 30, left: 40},
   width = 580 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;

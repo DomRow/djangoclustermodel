@@ -6,7 +6,7 @@ function ribbon_image(){
     layers1 = stack(d3.range(n).map(function() { return bumpLayer(m); }));
 
 var width = 960,
-    height = 500;
+    height = 300;
 
 var x = d3.scale.linear()
     .domain([0, m - 1])

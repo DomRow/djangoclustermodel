@@ -98,15 +98,11 @@ Output: Distance between Points
 
 
 def euclidean(p,q):
-    #Differences
     diff_v1 = q[0]-p[0]
     diff_v2 = q[1]-p[1]
-    #Squares - differences square
     sq_diff1 = diff_v1**2
     sq_diff2 = diff_v2**2
-    #Sum of sq diffs
     sum = sq_diff1 + sq_diff2
-    #Square root of sum
     sqsum = sqrt(sum)
     return sqsum
 
@@ -163,7 +159,7 @@ def k_means(data, distance=euclidean, k=4):
                 for i in range(len(rows[0]))] for j in range(k)]
     #Assignment Step            
     last_matches = None
-    for t in range(8):
+    for t in range(29):
         print 'Iteration %d' % t
         #Create list of lists for each K
         groups = [[] for i in range(k)]
