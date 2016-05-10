@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cluster At</title>
+    
+    {% load static %}
+    <script src='{%static 'jquery/jquery.js' %}'></script>
+    <script src="static/jquery/jquery.js"></script>
+    <script type="text/javascript" src='{%static 'js/d3.min.js' %}'></script>
+    <script type="text/javascript" src='{%static 'jquery/jquery.js' %}'></script>
+    <script type="text/javascript" src='{%static 'js/scatterd3.js' %}'></script>
+    <script type="text/javascript" src='{%static 'js/homed3.js' %}'></script>
+    <link rel="stylesheet" href='{%static 'css/bootstrap.css' %}'/>
+    <link rel="stylesheet" href='{%static 'css/main.css' %}'/>
+    <script>
+            $(function(){
+                var go = $("#go").click(function(){$("#form").submit();});
+                var ribbon = $("#strip");
+                ribbon.html(ribbon_image());
+            });
+             
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Welcome to ClusterAt</h1>
+    <div class="container"  id="container">
+        
+            <div class="box"><h3>Details</h3><p>First select a dataset. A dataset is a collection of items that share common attributes. This data is what you will be exploring.</p>
+            <p>Second, select the algorithm you want to use.</p>
+            <p>Thirdly, choose the number of clusters or groups. </p>
+            <p>Finally, choose the number of items you want clustered. </p>
+            <!-- <p>Lastly, set the timer - it's good for benchmarking your tests!</p> --></div>
+            <div class="box">      
+<h3>Algorithm</h3>
+                <p>Clustering algorithms take raw data and group them based on a set of attributes. Once this is done, information can be derived from the resulting groups. As long as these groups are robust to algorithm iterations, they're legitimate.</p>
+            </div>
+            <div class="box">                <div>
+                    <h3>Criteria</h3>
+                     <form action="cluster-results/" method="POST" id="form">
+                           {% csrf_token %}
+                        <table>
+                           <tr> 
+                           <td>{{ form.dataset.label_tag }}</td>
+                           <td>{{ form.dataset }}</td>
+                       </tr>
+                       <tr><td>
+                            {{ form.algorithm.label_tag }}</td>
+                           <td>{{ form.algorithm }}</td>
+                           
+                        </tr>
+                        <tr>   
+                           <td>{{ form.clusters.label_tag }}</td>
+                           <td>{{ form.clusters }}</td>
+                           
+                        </tr>
+                        <tr>
+                             <td>{{ form.numresults.label_tag }}</td>
+                           <td>{{ form.numresults }}</td>
+                           
+                           
+                        </tr>
+                        </table>
+                           </form>   
+                </div></div>
+            <div class="box"><h3>Visualise</h3>
+                <input type="submit" value="View Results" class="btn" id="go" >
+            </div>    
+            <div id="strip"></div> 
+    </div>
+</body>
+</html>
+
