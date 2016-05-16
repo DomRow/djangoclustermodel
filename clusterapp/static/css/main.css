@@ -1,40 +1,26 @@
-body {
-    background-color: white;
+.boxgrid{
+    /*background-color: #D3D3D3;*/
+    
+    padding: 50px 0px;
+    margin:15px;
+    border-radius: 25px;
+    /*border: 1px solid black;*/
+
 }
 
-#scatterarea{
-    background-color: white;
+svg{
+    display: block;
+    margin: auto;
 }
 
-.nav{
-    display:inline-block;
+.formText{
+    font-weight: bold;
 }
 
-ul.a {
-    list-style-type: none;
-}
 
-.hovered {
-    opacity: .6;
-}
 
-a {
-    text-decoration: none;
-    color: #33D;
-}
-
-.algselect{
-	visibility: visible;
-}
-
-#container1{
-	float:left;
-}
-
-#container2{
-	float:left;
-	visibility: visible;
-
+.boxtext{
+    text-align: center;
 }
 
 #tooltipside{
@@ -42,18 +28,4 @@ a {
     background-color: white;
 }
 
-#box1{
-    float:left;
-    width:50%;
-}
 
-#box2{
-    float:left;
-    background-color: black;
-}
-#box3{
-    float:right;
-}
-#box4{
-    float:right;
-}

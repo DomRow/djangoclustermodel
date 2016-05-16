@@ -18,19 +18,22 @@
 
 <body>
     {% block content %}
+    <div class="page-header">
+        <h1>hello</h1>
+    </div>
     <div class="jumbotron">
         <div class="row">
                 <h1>Welcome to ClusterAt</h1>
                 <div class="container-fluid"  id="container">
                     <img src='' alt="clusteratlogo">
                     <div class="box col-sm-4"><h3>Details</h3><p>First select the dataset. A dataset is a collection of items that share common attributes. This data is what you will be exploring.</p>
-                        <p>Second, select the algorithm you want to use.</p>
+                        <p class="boxtext">Second, select the algorithm you want to use.</p>
                         <p>Thirdly, choose the number of clusters or groups. </p>
                         <p>Finally, choose the number of items you want clustered. </p>
                         <p>Lastly, set the timer - it's good for benchmarking your tests!</p> --></div>
                         <div class="box col-sm-4">      
                             <h3>Algorithm</h3>
-                            <p>Clustering algorithms take raw data and group them based on a set of attributes. Once this is done, information can be derived from the resulting groups. As long as these groups are robust to algorithm iterations, they're legitimate.</p>
+                            <p class="boxtext">Clustering algorithms take raw data and group them based on a set of attributes. Once this is done, information can be derived from the resulting groups. As long as these groups are robust to algorithm iterations, they're legitimate.</p>
                         </div>
                         <div class="box col-sm-4">                <div>
                             <h3>Criteria</h3>
@@ -65,14 +68,15 @@
                      </table>
                  </form>   
              </div></div>
-             <div class="box col-sm-4"><h3>Visualiser</h3>
+             <div class="box col-sm-4"><h3 >Visualiser</h3>
                 <input type="submit" value="View Results" class="btn" id="go" >
             </div>
         </div>    
     </div>       
-<div id="strip"></div>
+
 {% endblock content%}    
 </div>
+<div id="strip"></div>
 </body>
 </html>
 

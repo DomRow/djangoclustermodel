@@ -1,12 +1,24 @@
 
 function scatter_d3(data,axes,f){
-  console.log(axes);  
+  console.log(data);  
   var margin = {top: 20, right: 100, bottom: 30, left: 40},
   width = 580 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
 
+  console.log(axes.xa);
+  if(axes.xa==='Rating Count'){
+    a=1;
+    b=100;
+  }else if(axes.xa==='Year'){
+    a=1970;
+    b=2014;
+  }else if(axes.xa==='Sepal Width'){
+    a=1;
+    b=10;
+  }
+
   var x = d3.scale.linear()
-  .domain([1,100])  
+  .domain([a,b])  
   .range([0, width]);
   var y = d3.scale.linear()
   .domain([1,10])
@@ -22,6 +34,15 @@ function scatter_d3(data,axes,f){
   // }); 
  
 var color = d3.scale.category20();
+// d3.scale.ordinal().domain([0,100])
+//       //.interpolate(d3.interpolateHcl)
+//       .range([d3.rgb("#16a085"),
+//               d3.rgb('#d35400'),
+//               d3.rgb('#c0392b'),
+//               d3.rgb('#bdc3c7'),
+//               d3.rgb('#7f8c8d')
+//               ]);
+      //console.log(d3.interpolateHcl);
 
 var xAxis = d3.svg.axis()
 .scale(x)
@@ -31,6 +52,7 @@ var yAxis = d3.svg.axis()
 .scale(y)
 .orient("left");
 
+var axesColour = color(1);
 
 var tooltip = d3.select("body").append("div")
 .attr("class", "tooltip")
@@ -47,7 +69,7 @@ svg.append("g")
 .attr("class", "x axis")
 .attr("transform", "translate(0," + height + ")")
 .call(xAxis)
-.style("fill",function(d){return color(d)})
+.style("fill",function(d){return axesColour})
 .append("text")
 .attr("class", "label")
 .attr("x", width)
@@ -58,7 +80,7 @@ svg.append("g")
 svg.append("g")
 .attr("class", "y axis")
 .call(yAxis)
-.style("fill",function(d){return color(d)})
+.style("fill",function(d){return axesColour})
 .append("text")
 .attr("class", "label")
 .attr("transform", "rotate(-90)")
@@ -135,7 +157,7 @@ legend.append("text")
 function mousedown(d){
   test=document.getElementById("tooltipside");
   test.innerHTML = ("");
-  test.innerHTML = (d);
+  test.innerHTML = ("Details: " +d[0]+ ", " +d[1]+ ", " +d[2]);
 
 };
 

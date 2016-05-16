@@ -5,7 +5,7 @@ function ribbon_image(){
     layers0 = stack(d3.range(n).map(function() { return bumpLayer(m); })),
     layers1 = stack(d3.range(n).map(function() { return bumpLayer(m); }));
 
-var width = 960,
+var width = 1960,
     height = 300;
 
 var x = d3.scale.linear()
@@ -16,8 +16,7 @@ var y = d3.scale.linear()
     .domain([0, d3.max(layers0.concat(layers1), function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
     .range([height, 0]);
 
-var color = d3.scale.linear()
-    .range(["#aad", "#556"]);
+var color =d3.scale.category20();
 
 var area = d3.svg.area()
     .x(function(d) { return x(d.x); })

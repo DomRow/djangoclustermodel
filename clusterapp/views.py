@@ -36,6 +36,9 @@ def pured3(request):
 	elif dataset=='iris':
 	 	settype="iris"
 	 	rows=Iris_all.values_list('sepal_width','petal_length','species')[:numres]
+	elif dataset=='year':
+	 	settype="year"
+	 	rows=Movies_all.values_list('year','rating','title')[:numres] 	
 	elif dataset=='blobs':
 	 	print blob1
 	 	settype="blobs"
