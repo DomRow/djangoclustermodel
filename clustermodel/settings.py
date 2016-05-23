@@ -14,7 +14,7 @@ SECRET_KEY = 'ea82p31c+bmf=1jz#6p6z_hv#el7y8t)jw9e_f47d^khz%##p('
 DEBUG = True
 
 ADMINS = [
-    'DR', 'n00052006@student.iadt.ie'
+    '', ''
 ]
 
 ALLOWED_HOSTS = []
