@@ -1,4 +1,0 @@
-Django==1.9.1
-mysql-python==1.2.3
-South==1.0.2
-wheel==0.24.0
